@@ -1,108 +1,101 @@
-const CACHE_NAME = 'meter-data-capture-v1';
-const OFFLINE_URL = '/offline.html';
-const PRECACHE_URLS = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  OFFLINE_URL,
-  'https://cdn.tailwindcss.com',
-  'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
+// A version for the cache. Change this to a new version to trigger an update.
+const CACHE_NAME = 'field-data-cache-v2';
+
+// A list of all the files and resources the app needs to function offline.
+// This list remains the same as all our code is in the main file.
+const urlsToCache = [
+  '.', // This represents the main HTML file (index.html)
+  'manifest.json',
+  'https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js',
+  'https://placehold.co/192x192/007bff/ffffff?text=FDC',
+  'https://placehold.co/512x512/007bff/ffffff?text=FDC'
 ];
 
-// Install event - cache essential resources
+// --- INSTALL EVENT ---
+// This event is fired when the service worker is first installed.
 self.addEventListener('install', event => {
+  console.log('Service Worker: Installing...');
+  
+  // waitUntil() ensures that the service worker will not install until the
+  // code inside it has successfully completed.
   event.waitUntil(
+    // Open the cache by name.
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('[Service Worker] Caching essential assets');
-        return cache.addAll(PRECACHE_URLS);
+        console.log('Service Worker: Caching app shell');
+        // Add all the specified URLs to the cache.
+        return cache.addAll(urlsToCache);
       })
-      .then(() => self.skipWaiting())
-      .catch(err => {
-        console.error('[Service Worker] Pre-caching failed:', err);
+      .then(() => {
+        console.log('Service Worker: Installation complete.');
+        // Activate the new service worker immediately.
+        return self.skipWaiting();
+      })
+      .catch(error => {
+        console.error('Service Worker: Installation failed', error);
       })
   );
 });
 
-// Activate event - clean up old caches
+// --- ACTIVATE EVENT ---
+// This event is fired when the service worker is activated.
+// It's a good place to clean up old caches.
 self.addEventListener('activate', event => {
+  console.log('Service Worker: Activating...');
+  
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('[Service Worker] Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
+        cacheNames.map(cache => {
+          // If a cache's name is not our current CACHE_NAME, we delete it.
+          if (cache !== CACHE_NAME) {
+            console.log('Service Worker: Clearing old cache:', cache);
+            return caches.delete(cache);
           }
         })
       );
+    }).then(() => {
+        console.log('Service Worker: Activation complete.');
+        // Take control of all open clients (pages) at once.
+        return self.clients.claim();
     })
-    .then(() => self.clients.claim())
   );
 });
 
-// Fetch event - serve from cache or network
+// --- FETCH EVENT ---
+// This event is fired for every network request the page makes.
+// We use this to serve cached content when offline.
 self.addEventListener('fetch', event => {
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') return;
-
-  // Handle API requests differently
-  if (event.request.url.includes('/api/')) {
-    event.respondWith(
-      fetch(event.request)
-        .catch(() => caches.match(OFFLINE_URL))
-    );
+  // We only want to handle GET requests.
+  if (event.request.method !== 'GET') {
     return;
   }
 
+  // We use respondWith() to hijack the request and provide our own response.
   event.respondWith(
+    // Check if the requested resource is in our cache.
     caches.match(event.request)
       .then(cachedResponse => {
-        // Return cached response if found
+        // If the resource is in the cache, return it.
         if (cachedResponse) {
           return cachedResponse;
         }
 
-        // Otherwise fetch from network
-        return fetch(event.request.clone())
-          .then(response => {
-            // Check if valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
+        // If the resource is not in the cache, fetch it from the network.
+        return fetch(event.request).then(
+            (networkResponse) => {
+                // A response can only be used once, so we need to clone it.
+                let responseToCache = networkResponse.clone();
+                caches.open(CACHE_NAME)
+                    .then((cache) => {
+                        cache.put(event.request, responseToCache);
+                    });
+                return networkResponse;
             }
-
-            // Clone the response for caching
-            const responseToCache = response.clone();
-            
-            // Add to cache
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-
-            return response;
-          })
-          .catch(error => {
-            // If offline, show offline page
-            if (event.request.mode === 'navigate') {
-              return caches.match(OFFLINE_URL);
-            }
-            console.error('[Service Worker] Fetch failed:', error);
-          });
+        ).catch(error => {
+            console.error('Service Worker: Fetch failed.', error);
+            // You could return a custom offline page here if you had one.
+        });
       })
   );
 });
-
-// Background sync setup
-self.addEventListener('sync', event => {
-  if (event.tag === 'sync-data') {
-    event.waitUntil(syncData());
-  }
-});
-
-async function syncData() {
-  console.log('[Service Worker] Background sync triggered');
-  // Add your data synchronization logic here
-}
