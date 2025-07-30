@@ -320,8 +320,9 @@
             <div class="field"><label for="transformerNo">Transformer No</label><input id="transformerNo" name="transformerNo" type="text"></div>
             <div class="field"><label for="standNo">Stand No</label><input id="standNo" name="standNo" type="text"></div>
             <div class="field"><label for="installationNo">Installation No</label><input id="installationNo" name="installationNo" type="text"></div>
-            <div class="field"><label for="lat">Latitude (DD MM SS.SSS S/N)</label><input id="lat" name="latitude" type="text" readonly></div>
-            <div class="field"><label for="lon">Longitude (DD MM SS.SSS E/W)</label><input id="lon" name="longitude" type="text" readonly></div>
+            <!-- DEBUG FIX: Changed id and for attributes from lat/lon to latitude/longitude to match the name attribute -->
+            <div class="field"><label for="latitude">Latitude (DD MM SS.SSS S/N)</label><input id="latitude" name="latitude" type="text" readonly></div>
+            <div class="field"><label for="longitude">Longitude (DD MM SS.SSS E/W)</label><input id="longitude" name="longitude" type="text" readonly></div>
             <div class="field"><label for="access">Access</label><select id="access" name="access"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="atHome">At Home</label><select id="atHome" name="atHome"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="connected">Connected</label><select id="connected" name="connected"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
@@ -595,7 +596,8 @@
 
         // --- VALIDATION ---
         const alwaysRequiredFields = ['cnc', 'date', 'feederName', 'transformerNo'];
-        const conditionalRequiredFields = ['phoneCode', 'phoneNo', 'meterNo', 'meterType', 'supplyGroupCode', 'cardTrip', 'elTest', 'sealed', 'sealNo', 'lat', 'lon'];
+        // DEBUG FIX: Changed 'lat', 'lon' to 'latitude', 'longitude' to match the input names
+        const conditionalRequiredFields = ['phoneCode', 'phoneNo', 'meterNo', 'meterType', 'supplyGroupCode', 'cardTrip', 'elTest', 'sealed', 'sealNo', 'latitude', 'longitude'];
         
         function updateRequiredVisuals() {
             const form = document.getElementById('captureForm');
@@ -882,8 +884,9 @@
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         pos => {
-                            document.getElementById('lat').value = toDMS(pos.coords.latitude, 'latitude');
-                            document.getElementById('lon').value = toDMS(pos.coords.longitude, 'longitude');
+                            // DEBUG FIX: Changed getElementById to use 'latitude' and 'longitude'
+                            document.getElementById('latitude').value = toDMS(pos.coords.latitude, 'latitude');
+                            document.getElementById('longitude').value = toDMS(pos.coords.longitude, 'longitude');
                             showMessage('Initial GPS acquired.', 'success', 2000);
                             updateRequiredVisuals();
                         },
@@ -907,8 +910,9 @@
             showMessage('Getting GPS...', 'info', 5000);
             navigator.geolocation.getCurrentPosition(
                 pos => {
-                    document.getElementById('lat').value = toDMS(pos.coords.latitude, 'latitude');
-                    document.getElementById('lon').value = toDMS(pos.coords.longitude, 'longitude');
+                    // DEBUG FIX: Changed getElementById to use 'latitude' and 'longitude'
+                    document.getElementById('latitude').value = toDMS(pos.coords.latitude, 'latitude');
+                    document.getElementById('longitude').value = toDMS(pos.coords.longitude, 'longitude');
                     showMessage('GPS acquired successfully!', 'success');
                     updateRequiredVisuals();
                 },
