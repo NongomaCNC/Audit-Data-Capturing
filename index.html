@@ -87,10 +87,6 @@
             border-color: var(--primary-color);
             box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
         }
-        textarea {
-            min-height: 60px;
-            resize: vertical;
-        }
         input[readonly] {
             background-color: #e9e9e9;
             cursor: not-allowed;
@@ -132,7 +128,6 @@
         #submitBtn { background: var(--primary-color); }
         #viewDataBtn { background: var(--info-color); }
         #downloadOnlyBtn { background: var(--cyan-color); color: #000; }
-        #exportBtn { background: var(--warning-color); color: #000; }
         #clearDataBtn { background: var(--danger-color); }
         #closeViewDataBtn { background: var(--secondary-color); }
 
@@ -278,7 +273,6 @@
 </head>
 <body>
 
-    <!-- Password Modal -->
     <div id="passwordModal" class="modal-overlay visible">
         <div class="modal-content">
             <h2>Data Encryption</h2>
@@ -290,7 +284,6 @@
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
     <div id="confirmModal" class="modal-overlay">
         <div class="modal-content">
             <h2 id="confirmTitle">Are you sure?</h2>
@@ -303,26 +296,27 @@
     </div>
 
     <div class="main-content">
-        <h1>Field Data Capture</h1>
+        <h1>Audit Data Capture</h1>
 
         <form id="captureForm" novalidate>
             <input type="hidden" id="recordId" name="id">
 
-            <!-- Form fields remain the same -->
-            <div class="field"><label for="workorderNo">Workorder No</label><input id="workorderNo" name="workorderNo" type="text" placeholder="Optional"></div>
-            <div class="field"><label for="zone">Zone</label><input id="zone" name="zone" type="text" placeholder="e.g., North"></div>
-            <div class="field"><label for="sector">Sector</label><input id="sector" name="sector" type="text" placeholder="e.g., A"></div>
+            <div class="field"><label for="zone">Zone</label><input id="zone" name="zone" type="text" placeholder="e.g., Empangeni"></div>
+            <div class="field"><label for="sector">Sector</label><input id="sector" name="sector" type="text" placeholder="e.g., Pongola"></div>
             <div class="field"><label for="cnc">CNC</label><input id="cnc" name="cnc" type="text"></div>
-            <div class="field"><label for="contractorName">Contractor Name or Source</label><input id="contractorName" name="contractorName" type="text"></div>
-            <div class="field"><label for="date">Date</label><input id="date" type="date" name="date"></div>
+            <div class="field"><label for="onPrevious">On Previous</label><input id="onPrevious" name="onPrevious" type="text"></div>
+ 	    <div class="field"><label for="date">Date</label><input id="date" type="date" name="date"></div>
+	    <div class="field"><label for="time">Time</label><input id="time" type="time" name="time"></div>
+       	    <div class="field"><label for="featureName">FeatureName(Auditing/MeterChangeout)</label><input id="featureName" type="text" name="featureName"></div>
+            <div class="field"><label for="testerID">TesterID</label><input id="testerID" name="testerID" type="text"></div>
+           
             <div class="field"><label for="feederName">Feeder Name</label><input id="feederName" name="feederName" type="text"></div>
             <div class="field"><label for="townshipName">Township Name</label><input id="townshipName" name="townshipName" type="text"></div>
-            <div class="field"><label for="transformerNo">Transformer No</label><input id="transformerNo" name="transformerNo" type="text"></div>
+            <div class="field"><label for="xformerNo">XformerNo</label><input id="xformerNo" name="xformerNo" type="text"></div>
             <div class="field"><label for="standNo">Stand No</label><input id="standNo" name="standNo" type="text"></div>
             <div class="field"><label for="installationNo">Installation No</label><input id="installationNo" name="installationNo" type="text"></div>
-            <!-- DEBUG FIX: Changed id and for attributes from lat/lon to latitude/longitude to match the name attribute -->
-            <div class="field"><label for="latitude">Latitude (DD MM SS.SSS S/N)</label><input id="latitude" name="latitude" type="text" readonly></div>
-            <div class="field"><label for="longitude">Longitude (DD MM SS.SSS E/W)</label><input id="longitude" name="longitude" type="text" readonly></div>
+            <div class="field"><label for="lat">Latitude (DD MM SS.SSS S/N)</label><input id="lat" name="latitude" type="text" readonly></div>
+            <div class="field"><label for="lon">Longitude (DD MM SS.SSS E/W)</label><input id="lon" name="longitude" type="text" readonly></div>
             <div class="field"><label for="access">Access</label><select id="access" name="access"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="atHome">At Home</label><select id="atHome" name="atHome"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="connected">Connected</label><select id="connected" name="connected"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
@@ -341,18 +335,25 @@
             <div class="field"><label for="split">Split</label><select id="split" name="split"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="commonBaseMeter">Common/Non Common Base Meter</label><input id="commonBaseMeter" name="commonBaseMeter" type="text"></div>
             <div class="field"><label for="edEcu">ED/ECU</label><input id="edEcu" name="edEcu" type="text"></div>
-            <div class="field"><label for="meterType">Meter Type</label><input id="meterType" name="meterType" type="text"></div>
+            <div class="field"><label for="meterField">Meter Field</label><input id="meterField" name="meterField" type="text"></div>
+            <div class="field"><label for="otherMeterType">Other Meter Type</label><input id="otherMeterType" name="otherMeterType" type="text"></div>
             <div class="field"><label for="tariffCode">Tariff Code</label><input id="tariffCode" name="tariffCode" type="text"></div>
             <div class="field"><label for="ampLimit">Amp Limit</label><input id="ampLimit" name="ampLimit" type="number" inputmode="numeric" pattern="[0-9]*"></div>
             <div class="field"><label for="supplyGroupCode">Supply Group Code</label><input id="supplyGroupCode" name="supplyGroupCode" type="text"></div>
+            <div class="field"><label for="illegalConnection">Illegal Connection</label><select id="illegalConnection" name="illegalConnection"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
+	    <div class="field"><label for="meterTariffIndex">MeterTariffIndex</label><input id="meterTariffIndex" name="meterTariffIndex" type="text"></div>
+
             <div class="field"><label for="magCard">Mag Card/Keypad</label><input id="magCard" name="magCard" type="text"></div>
             <div class="field"><label for="stsOrProp">STS or Prop</label><input id="stsOrProp" name="stsOrProp" type="text"></div>
             <div class="field"><label for="tampered">Tampered</label><select id="tampered" name="tampered"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="tamperMethod">Tamper Method</label><input id="tamperMethod" name="tamperMethod" type="text"></div>
             <div class="field"><label for="removed">Removed</label><select id="removed" name="removed"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="tamperNotNo">Tamper Not No</label><input id="tamperNotNo" name="tamperNotNo" type="text"></div>
+	    <div class="field"><label for="tamperWaiver">TamperWaiver</label><input id="tamperWaiver" name="tamperWaiver" type="text"></div>
+
             <div class="field"><label for="cardTrip">Card Trip</label><select id="cardTrip" name="cardTrip"><option value="">— Select —</option><option value="Pass">Pass</option><option value="Fail">Fail</option></select></div>
             <div class="field"><label for="elTest">E/L Test</label><select id="elTest" name="elTest"><option value="">— Select —</option><option value="Pass">Pass</option><option value="Fail">Fail</option></select></div>
+            <div class="field"><label for="newSupplyGroupCode">NewSupplyGroupCode</label><input id="newSupplyGroupCode" name="newSupplyGroupCode" type="text"></div>
             <div class="field"><label for="meterFaulty">Meter Faulty</label><select id="meterFaulty" name="meterFaulty"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="replaced">Replaced</label><select id="replaced" name="replaced"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="mmfNo">MMF No</label><input id="mmfNo" name="mmfNo" type="text"></div>
@@ -370,7 +371,6 @@
                 <button type="submit" id="submitBtn">Save Data</button>
                 <button type="button" id="viewDataBtn">View Data</button>
                 <button type="button" id="downloadOnlyBtn">Download</button>
-                <button type="button" id="exportBtn">Download & Clear</button>
             </div>
         </form>
 
@@ -393,14 +393,26 @@
     </div>
 
     <script>
+        // Register the service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered: ', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed: ', error);
+                    });
+            });
+        }
+    
         const DB_NAME = 'FieldDataDB';
-        const DB_VERSION = 2; // Incremented version for schema change
+        const DB_VERSION = 2;
         const STORE_NAME = 'records';
         let db;
-        let encryptionKey; // This will hold the key for the session
+        let encryptionKey;
 
         // --- CRYPTOGRAPHY FUNCTIONS ---
-        // Derives a key from a password using PBKDF2
         async function getKey(password, salt) {
             const enc = new TextEncoder();
             const keyMaterial = await window.crypto.subtle.importKey(
@@ -424,10 +436,9 @@
             );
         }
 
-        // Encrypts a JSON object
         async function encryptData(dataObject) {
             if (!encryptionKey) throw new Error("Encryption key is not set.");
-            const iv = window.crypto.getRandomValues(new Uint8Array(12)); // Initialization Vector
+            const iv = window.crypto.getRandomValues(new Uint8Array(12));
             const enc = new TextEncoder();
             const encodedData = enc.encode(JSON.stringify(dataObject));
             
@@ -437,15 +448,13 @@
                 encodedData
             );
             
-            // Combine iv and encrypted data for storage
             const encryptedPackage = {
-                iv: Array.from(iv), // Convert Uint8Array to array for JSON compatibility
+                iv: Array.from(iv),
                 data: Array.from(new Uint8Array(encryptedContent))
             };
             return encryptedPackage;
         }
 
-        // Decrypts an encrypted package
         async function decryptData(encryptedPackage) {
             if (!encryptionKey) throw new Error("Encryption key is not set.");
             try {
@@ -489,7 +498,7 @@
             return new Promise((resolve, reject) => {
                 const transaction = db.transaction([STORE_NAME], 'readwrite');
                 const store = transaction.objectStore(STORE_NAME);
-                // The record is now an object { id, encryptedData }
+                // Correctly add only the encrypted data
                 const request = store.add({ encryptedData: encryptedRecord });
                 request.onsuccess = () => resolve();
                 request.onerror = (event) => reject(event.target.error);
@@ -500,6 +509,7 @@
             return new Promise((resolve, reject) => {
                 const transaction = db.transaction([STORE_NAME], 'readwrite');
                 const store = transaction.objectStore(STORE_NAME);
+                // The object for update must contain the keyPath
                 const request = store.put({ id: id, encryptedData: encryptedRecord });
                 request.onsuccess = () => resolve();
                 request.onerror = (event) => reject(event.target.error);
@@ -516,7 +526,6 @@
             });
         }
 
-        // Other DB functions (delete, getAll, clearAll) remain largely the same
         function deleteRecord(id) {
             return new Promise((resolve, reject) => {
                 const transaction = db.transaction([STORE_NAME], 'readwrite');
@@ -578,7 +587,7 @@
             });
         }
 
-        // --- GPS & DATE ---
+        // --- GPS & DATE/TIME ---
         function toDMS(dec, type) {
             const abs = Math.abs(dec);
             const deg = Math.floor(abs);
@@ -594,10 +603,16 @@
             document.getElementById('date').valueAsDate = today;
         }
 
+        function setCurrentTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('time').value = `${hours}:${minutes}`;
+        }
+
         // --- VALIDATION ---
-        const alwaysRequiredFields = ['cnc', 'date', 'feederName', 'transformerNo'];
-        // DEBUG FIX: Changed 'lat', 'lon' to 'latitude', 'longitude' to match the input names
-        const conditionalRequiredFields = ['phoneCode', 'phoneNo', 'meterNo', 'meterType', 'supplyGroupCode', 'cardTrip', 'elTest', 'sealed', 'sealNo', 'latitude', 'longitude'];
+        const alwaysRequiredFields = ['cnc', 'date', 'feederName', 'xformerNo'];
+        const conditionalRequiredFields = ['phoneCode', 'phoneNo', 'meterNo', 'supplyGroupCode', 'cardTrip', 'elTest', 'sealed', 'sealNo', 'latitude', 'longitude'];
         
         function updateRequiredVisuals() {
             const form = document.getElementById('captureForm');
@@ -620,21 +635,21 @@
 
         function validateForm() {
             const form = document.getElementById('captureForm');
-            const data = new FormData(form);
+            const formData = new FormData(form);
             const errors = [];
             const isConditionMet = ['access', 'atHome', 'connected'].some(id => form.elements[id].value === 'Yes');
             const checkField = (id, label) => {
-                if (!data.get(id)?.trim()) {
+                if (!formData.get(id)?.trim()) {
                     errors.push(`${label} is required.`);
                 }
             };
             alwaysRequiredFields.forEach(id => {
-                const label = form.querySelector(`label[for=${id}]`).textContent.replace('*','');
+                const label = form.querySelector(`label[for="${id}"]`)?.textContent.replace('*','');
                 checkField(id, label);
             });
             if (isConditionMet) {
                 conditionalRequiredFields.forEach(id => {
-                    const label = form.querySelector(`label[for=${id}]`).textContent.replace('*','').replace(/ \(.+\)/, '');
+                    const label = form.querySelector(`label[for="${id}"]`)?.textContent.replace('*','').replace(/ \(.+\)/, '');
                     checkField(id, label);
                 });
             }
@@ -653,13 +668,22 @@
             const form = e.target;
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
+            
+            // Corrected logic to check for an existing record ID
             const recordId = data.id ? parseInt(data.id, 10) : null;
-            delete data.id; // Don't encrypt the ID
+            delete data.id;
 
             if (data.date) {
                 const d = new Date(data.date);
-                data.date = `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`;
+                data.date = d.toISOString().split('T')[0];
             }
+            
+            // Auto-capture the current time on form submission
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            data.time = `${hours}:${minutes}`;
+
 
             try {
                 const encryptedData = await encryptData(data);
@@ -682,6 +706,7 @@
             document.getElementById('recordId').value = '';
             document.getElementById('submitBtn').textContent = 'Save Data';
             setTodaysDate();
+            setCurrentTime(); // Auto-set time on reset
             updateRequiredVisuals();
             window.scrollTo(0, 0);
         }
@@ -695,12 +720,10 @@
                 
                 const form = document.getElementById('captureForm');
                 for (const key in record) {
-                    if (form.elements[key]) {
-                        form.elements[key].value = record[key];
+                    const el = form.elements[key];
+                    if (el) {
+                        el.value = record[key];
                     }
-                }
-                if (record.date) {
-                    form.elements.date.value = record.date.replace(/\//g, '-');
                 }
                 document.getElementById('recordId').value = id;
                 document.getElementById('submitBtn').textContent = 'Update Data';
@@ -745,12 +768,12 @@
                 for (const rec of encryptedRecords) {
                     try {
                         const decrypted = await decryptData(rec.encryptedData);
-                        decrypted.id = rec.id; // Re-attach the ID post-decryption
+                        decrypted.id = rec.id;
                         records.push(decrypted);
                     } catch (e) {
                          showMessage('One or more records failed to decrypt. Incorrect password?', 'error');
                          console.error("Decryption failure for record id:", rec.id);
-                         return; // Stop processing if a record fails
+                         return;
                     }
                 }
 
@@ -783,10 +806,18 @@
                         tr.innerHTML += `<td>${record[key] || ''}</td>`;
                     });
                     tr.innerHTML += `<td class="action-cell">
-                        <button class="edit-btn" onclick="editEntry(${record.id})">Edit</button>
-                        <button class="delete-btn" onclick="deleteEntry(${record.id})">Delete</button>
+                        <button class="edit-btn" data-id="${record.id}">Edit</button>
+                        <button class="delete-btn" data-id="${record.id}">Delete</button>
                     </td>`;
                     tableBody.appendChild(tr);
+                });
+                
+                // Add event listeners dynamically to fix inline onclick issue
+                tableBody.querySelectorAll('.edit-btn').forEach(button => {
+                    button.addEventListener('click', (e) => editEntry(parseInt(e.target.dataset.id, 10)));
+                });
+                tableBody.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', (e) => deleteEntry(parseInt(e.target.dataset.id, 10)));
                 });
 
                 savedDataSection.classList.add('visible');
@@ -812,9 +843,19 @@
                 }
             }
 
+            // Define a mapping for specific field headers for the Excel file
+            const excelHeaderMap = {
+                'featureName': 'FeatureName(Auditing/MeterChangeout)',
+                'xformerNo': 'XformerNo',
+                'newSupplyGroupCode': 'NewSupplyGroupCode',
+                'lat': 'Latitude',
+                'lon': 'Longitude',
+            };
+
             const map = {};
             formFieldOrder.forEach(key => {
-                map[key] = document.querySelector(`label[for="${key}"]`)?.textContent.replace('*','') || key;
+                // Use the custom mapping if it exists, otherwise fall back to the label from the DOM
+                map[key] = excelHeaderMap[key] || document.querySelector(`label[for="${key}"]`)?.textContent.replace('*','') || key;
             });
             const formatted = records.map(rec => {
                 const obj = {};
@@ -845,23 +886,6 @@
             else showMessage('Download cancelled.', 'info');
         });
 
-        document.getElementById('exportBtn').addEventListener('click', async () => {
-            const recordsToExport = await getAllRecords();
-            if (recordsToExport.length === 0) return showMessage('No data to export.', 'info');
-            const downloadConfirmed = await showConfirm('Download Data', `You have ${recordsToExport.length} entries. Do you want to download the Excel file?`);
-            if (!downloadConfirmed) return showMessage('Download cancelled.', 'info');
-            
-            const success = await performDownload();
-            if (success) {
-                const clearConfirmed = await showConfirm('Clear Data', 'Data has been downloaded. Do you want to clear all saved entries?');
-                if (clearConfirmed) {
-                    await clearAllRecords();
-                    savedDataSection.classList.remove('visible');
-                    showMessage('All saved data has been cleared.', 'success');
-                }
-            }
-        });
-
         // --- INITIALIZATION & EVENT LISTENERS ---
         document.getElementById('passwordSubmit').addEventListener('click', async () => {
             const passwordInput = document.getElementById('passwordInput');
@@ -870,8 +894,6 @@
             }
 
             try {
-                // A static salt is not ideal, but acceptable for this offline-first use case.
-                // In a real app, this would be unique per user and stored on a server.
                 const salt = new TextEncoder().encode("a-static-salt-for-the-pwa");
                 encryptionKey = await getKey(passwordInput.value, salt);
                 
@@ -880,13 +902,13 @@
                 
                 await initDb();
                 setTodaysDate();
+                setCurrentTime(); // Auto-set time on password submission
                 updateRequiredVisuals();
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         pos => {
-                            // DEBUG FIX: Changed getElementById to use 'latitude' and 'longitude'
-                            document.getElementById('latitude').value = toDMS(pos.coords.latitude, 'latitude');
-                            document.getElementById('longitude').value = toDMS(pos.coords.longitude, 'longitude');
+                            document.getElementById('lat').value = toDMS(pos.coords.latitude, 'latitude');
+                            document.getElementById('lon').value = toDMS(pos.coords.longitude, 'longitude');
                             showMessage('Initial GPS acquired.', 'success', 2000);
                             updateRequiredVisuals();
                         },
@@ -910,9 +932,8 @@
             showMessage('Getting GPS...', 'info', 5000);
             navigator.geolocation.getCurrentPosition(
                 pos => {
-                    // DEBUG FIX: Changed getElementById to use 'latitude' and 'longitude'
-                    document.getElementById('latitude').value = toDMS(pos.coords.latitude, 'latitude');
-                    document.getElementById('longitude').value = toDMS(pos.coords.longitude, 'longitude');
+                    document.getElementById('lat').value = toDMS(pos.coords.latitude, 'latitude');
+                    document.getElementById('lon').value = toDMS(pos.coords.longitude, 'longitude');
                     showMessage('GPS acquired successfully!', 'success');
                     updateRequiredVisuals();
                 },
@@ -949,7 +970,6 @@
         ['access', 'atHome', 'connected'].forEach(id => {
             document.getElementById(id).addEventListener('change', updateRequiredVisuals);
         });
-
     </script>
 </body>
 </html>
