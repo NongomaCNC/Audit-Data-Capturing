@@ -147,7 +147,7 @@
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
             pointer-events: none;
             text-align: center;
-            white-space: nowrap;
+            white-space: pre-wrap; /* Allow line breaks */
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
         #message.show {
@@ -227,11 +227,12 @@
             margin-bottom: 1rem;
             font-size: 0.95rem;
             color: var(--secondary-color);
+            line-height: 1.5;
         }
         #dataCounts span {
             font-weight: bold;
             color: var(--dark-color);
-            margin: 0 10px;
+            margin: 0 5px;
         }
         #savedDataTableContainer {
             overflow-x: auto;
@@ -305,8 +306,8 @@
             <div class="field"><label for="sector">Sector</label><input id="sector" name="sector" type="text" placeholder="e.g., Pongola"></div>
             <div class="field"><label for="cnc">CNC</label><input id="cnc" name="cnc" type="text"></div>
             <div class="field"><label for="onPrevious">On Previous</label><input id="onPrevious" name="onPrevious" type="text"></div>
- 	    <div class="field"><label for="date">Date</label><input id="date" type="date" name="date"></div>
-	    <div class="field"><label for="time">Time</label><input id="time" type="time" name="time"></div>
+ 	        <div class="field"><label for="date">Date</label><input id="date" type="date" name="date"></div>
+	        <div class="field"><label for="time">Time</label><input id="time" type="time" name="time"></div>
        	    <div class="field"><label for="featureName">FeatureName(Auditing/MeterChangeout)</label><input id="featureName" type="text" name="featureName"></div>
             <div class="field"><label for="testerID">TesterID</label><input id="testerID" name="testerID" type="text"></div>
            
@@ -326,30 +327,30 @@
             <div class="field"><label for="owner">Owner</label><select id="owner" name="owner"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="surname">Surname</label><input id="surname" name="surname" type="text"></div>
             <div class="field"><label for="name">Name</label><input id="name" name="name" type="text"></div>
-            <div class="field"><label for="idNo">ID No</label><input id="idNo" name="idNo" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="e.g., 8501015000087"></div>
+            <div class="field"><label for="idNo">ID No</label><input id="idNo" name="idNo" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="13 digits required" minlength="13" maxlength="13"></div>
             <div class="field"><label for="phoneCode">Phone Code</label><input id="phoneCode" name="phoneCode" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="e.g., +27"></div>
-            <div class="field"><label for="phoneNo">Phone No</label><input id="phoneNo" name="phoneNo" type="tel" inputmode="tel" placeholder="e.g., 821234567"></div>
+            <div class="field"><label for="phoneNo">Phone No</label><input id="phoneNo" name="phoneNo" type="tel" inputmode="tel" placeholder="7 digits required" minlength="7" maxlength="7"></div>
             <div class="field"><label for="normalVendor">Normal Vendor</label><select id="normalVendor" name="normalVendor"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="recentVendor">Most Recent Vendor</label><input id="recentVendor" name="recentVendor" type="text"></div>
-            <div class="field"><label for="meterNo">Meter No</label><input id="meterNo" name="meterNo" type="text"></div>
+            <div class="field"><label for="meterNo">Meter No</label><input id="meterNo" name="meterNo" type="text" inputmode="numeric" placeholder="11 digits required" minlength="11" maxlength="11"></div>
             <div class="field"><label for="split">Split</label><select id="split" name="split"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="commonBaseMeter">Common/Non Common Base Meter</label><input id="commonBaseMeter" name="commonBaseMeter" type="text"></div>
-            <div class="field"><label for="edEcu">ED/ECU</label><input id="edEcu" name="edEcu" type="text"></div>
+            <div class="field"><label for="edEcu">ED/ECU</label><select id="edEcu" name="edEcu"><option value="">— Select —</option><option value="ED">ED</option><option value="ECU">ECU</option></select></div>
             <div class="field"><label for="meterField">Meter Field</label><input id="meterField" name="meterField" type="text"></div>
             <div class="field"><label for="otherMeterType">Other Meter Type</label><input id="otherMeterType" name="otherMeterType" type="text"></div>
             <div class="field"><label for="tariffCode">Tariff Code</label><input id="tariffCode" name="tariffCode" type="text"></div>
             <div class="field"><label for="ampLimit">Amp Limit</label><input id="ampLimit" name="ampLimit" type="number" inputmode="numeric" pattern="[0-9]*"></div>
             <div class="field"><label for="supplyGroupCode">Supply Group Code</label><input id="supplyGroupCode" name="supplyGroupCode" type="text"></div>
             <div class="field"><label for="illegalConnection">Illegal Connection</label><select id="illegalConnection" name="illegalConnection"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
-	    <div class="field"><label for="meterTariffIndex">MeterTariffIndex</label><input id="meterTariffIndex" name="meterTariffIndex" type="text"></div>
+	        <div class="field"><label for="meterTariffIndex">MeterTariffIndex</label><input id="meterTariffIndex" name="meterTariffIndex" type="text"></div>
 
-            <div class="field"><label for="magCard">Mag Card/Keypad</label><input id="magCard" name="magCard" type="text"></div>
+            <div class="field"><label for="magCard">Mag Card/Keypad</label><select id="magCard" name="magCard"><option value="">— Select —</option><option value="Mag Card">Mag Card</option><option value="Keypad">Keypad</option></select></div>
             <div class="field"><label for="stsOrProp">STS or Prop</label><input id="stsOrProp" name="stsOrProp" type="text"></div>
             <div class="field"><label for="tampered">Tampered</label><select id="tampered" name="tampered"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="tamperMethod">Tamper Method</label><input id="tamperMethod" name="tamperMethod" type="text"></div>
             <div class="field"><label for="removed">Removed</label><select id="removed" name="removed"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="tamperNotNo">Tamper Not No</label><input id="tamperNotNo" name="tamperNotNo" type="text"></div>
-	    <div class="field"><label for="tamperWaiver">TamperWaiver</label><input id="tamperWaiver" name="tamperWaiver" type="text"></div>
+	        <div class="field"><label for="tamperWaiver">TamperWaiver</label><input id="tamperWaiver" name="tamperWaiver" type="text"></div>
 
             <div class="field"><label for="cardTrip">Card Trip</label><select id="cardTrip" name="cardTrip"><option value="">— Select —</option><option value="Pass">Pass</option><option value="Fail">Fail</option></select></div>
             <div class="field"><label for="elTest">E/L Test</label><select id="elTest" name="elTest"><option value="">— Select —</option><option value="Pass">Pass</option><option value="Fail">Fail</option></select></div>
@@ -612,12 +613,14 @@
 
         // --- VALIDATION ---
         const alwaysRequiredFields = ['cnc', 'date', 'feederName', 'xformerNo'];
-        const conditionalRequiredFields = ['phoneCode', 'phoneNo', 'meterNo', 'supplyGroupCode', 'cardTrip', 'elTest', 'sealed', 'sealNo', 'latitude', 'longitude'];
+        const accessBasedRequiredFields = ['phoneCode', 'phoneNo', 'meterNo', 'supplyGroupCode', 'cardTrip', 'elTest', 'sealed', 'latitude', 'longitude'];
+        const sealedBasedRequiredFields = ['sealNo'];
+        const replacedBasedRequiredFields = ['mmfNo', 'newMeterNo', 'newMeterAmpLimit'];
         
         function updateRequiredVisuals() {
             const form = document.getElementById('captureForm');
-            const isConditionMet = ['access', 'atHome', 'connected'].some(id => form.elements[id].value === 'Yes');
             form.querySelectorAll('.required-star').forEach(star => star.remove());
+            
             const addStar = (element) => {
                 const label = element.closest('.field')?.querySelector('label');
                 if (label && !label.querySelector('.required-star')) {
@@ -627,9 +630,17 @@
                     label.appendChild(star);
                 }
             };
+            
             alwaysRequiredFields.forEach(id => addStar(form.elements[id]));
-            if (isConditionMet) {
-                conditionalRequiredFields.forEach(id => addStar(form.elements[id]));
+            
+            if (['access', 'atHome', 'connected'].some(id => form.elements[id].value === 'Yes')) {
+                accessBasedRequiredFields.forEach(id => addStar(form.elements[id]));
+            }
+            if (form.elements.sealed.value === 'Yes') {
+                sealedBasedRequiredFields.forEach(id => addStar(form.elements[id]));
+            }
+            if (form.elements.replaced.value === 'Yes') {
+                replacedBasedRequiredFields.forEach(id => addStar(form.elements[id]));
             }
         }
 
@@ -637,22 +648,53 @@
             const form = document.getElementById('captureForm');
             const formData = new FormData(form);
             const errors = [];
-            const isConditionMet = ['access', 'atHome', 'connected'].some(id => form.elements[id].value === 'Yes');
+            
             const checkField = (id, label) => {
                 if (!formData.get(id)?.trim()) {
                     errors.push(`${label} is required.`);
                 }
             };
+            
+            // Always required
             alwaysRequiredFields.forEach(id => {
                 const label = form.querySelector(`label[for="${id}"]`)?.textContent.replace('*','');
                 checkField(id, label);
             });
-            if (isConditionMet) {
-                conditionalRequiredFields.forEach(id => {
+            
+            // Conditional on Access/AtHome/Connected
+            if (['access', 'atHome', 'connected'].some(id => form.elements[id].value === 'Yes')) {
+                accessBasedRequiredFields.forEach(id => {
                     const label = form.querySelector(`label[for="${id}"]`)?.textContent.replace('*','').replace(/ \(.+\)/, '');
                     checkField(id, label);
                 });
             }
+            
+            // Conditional on 'Sealed'
+            if (formData.get('sealed') === 'Yes') {
+                checkField('sealNo', 'Seal No');
+            }
+            
+            // Conditional on 'Replaced'
+            if (formData.get('replaced') === 'Yes') {
+                checkField('mmfNo', 'MMF No');
+                checkField('newMeterNo', 'New Meter No');
+                checkField('newMeterAmpLimit', 'New Meter Amp Limit');
+            }
+            
+            // Specific field format validation
+            const idNo = formData.get('idNo').trim();
+            if (idNo && idNo.length !== 13) {
+                errors.push('ID No. must be 13 digits.');
+            }
+            const phoneNo = formData.get('phoneNo').trim();
+            if (phoneNo && phoneNo.length !== 7) {
+                errors.push('Phone No. must be 7 digits.');
+            }
+            const meterNo = formData.get('meterNo').trim();
+            if (meterNo && meterNo.length !== 11) {
+                errors.push('Meter No. must be 11 digits.');
+            }
+
             if (errors.length > 0) {
                 showMessage(errors.join('\n'), 'error', 5000);
                 return false;
@@ -669,13 +711,12 @@
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             
-            // Corrected logic to check for an existing record ID
             const recordId = data.id ? parseInt(data.id, 10) : null;
             delete data.id;
 
             if (data.date) {
-                const d = new Date(data.date);
-                data.date = d.toISOString().split('T')[0];
+                // data.date is in 'YYYY-MM-DD' format, change it to 'YYYY/MM/DD' for storage
+                data.date = data.date.replace(/-/g, '/');
             }
             
             // Auto-capture the current time on form submission
@@ -705,6 +746,8 @@
             document.getElementById('captureForm').reset();
             document.getElementById('recordId').value = '';
             document.getElementById('submitBtn').textContent = 'Save Data';
+            // Make amp limit editable again on reset
+            document.getElementById('ampLimit').readOnly = false;
             setTodaysDate();
             setCurrentTime(); // Auto-set time on reset
             updateRequiredVisuals();
@@ -722,7 +765,12 @@
                 for (const key in record) {
                     const el = form.elements[key];
                     if (el) {
-                        el.value = record[key];
+                        // For dates, convert YYYY/MM/DD back to YYYY-MM-DD for the date input
+                        if (key === 'date' && record[key]) {
+                            el.value = record[key].replace(/\//g, '-');
+                        } else {
+                            el.value = record[key];
+                        }
                     }
                 }
                 document.getElementById('recordId').value = id;
@@ -731,7 +779,8 @@
                 savedDataSection.classList.remove('visible');
                 window.scrollTo(0, 0);
                 showMessage('Editing entry. Scroll up to see the form.', 'info');
-            } catch (error) {
+            } catch (error)
+            {
                 showMessage(`Error loading data for editing: ${error.message}`, 'error');
             }
         }
@@ -779,12 +828,14 @@
 
                 let tamperedCount = 0;
                 let faultyCount = 0;
+                let illegalCount = 0;
                 records.forEach(rec => {
                     if (rec.tampered === 'Yes') tamperedCount++;
                     if (rec.meterFaulty === 'Yes') faultyCount++;
+                    if (rec.illegal === 'Yes') illegalCount++;
                 });
                 document.getElementById('dataCounts').innerHTML = 
-                    `Total Entries: <span>${records.length}</span> | Tampered: <span>${tamperedCount}</span> | Meter Faulty: <span>${faultyCount}</span>`;
+                    `Total: <span>${records.length}</span> | Tampered: <span>${tamperedCount}</span><br>Meter Faulty: <span>${faultyCount}</span> | Illegal: <span>${illegalCount}</span>`;
                 
                 const tableHeader = document.getElementById('savedTableHeader');
                 const tableBody = document.getElementById('savedTableBody');
@@ -812,7 +863,6 @@
                     tableBody.appendChild(tr);
                 });
                 
-                // Add event listeners dynamically to fix inline onclick issue
                 tableBody.querySelectorAll('.edit-btn').forEach(button => {
                     button.addEventListener('click', (e) => editEntry(parseInt(e.target.dataset.id, 10)));
                 });
@@ -843,7 +893,6 @@
                 }
             }
 
-            // Define a mapping for specific field headers for the Excel file
             const excelHeaderMap = {
                 'featureName': 'FeatureName(Auditing/MeterChangeout)',
                 'xformerNo': 'XformerNo',
@@ -854,7 +903,6 @@
 
             const map = {};
             formFieldOrder.forEach(key => {
-                // Use the custom mapping if it exists, otherwise fall back to the label from the DOM
                 map[key] = excelHeaderMap[key] || document.querySelector(`label[for="${key}"]`)?.textContent.replace('*','') || key;
             });
             const formatted = records.map(rec => {
@@ -902,7 +950,7 @@
                 
                 await initDb();
                 setTodaysDate();
-                setCurrentTime(); // Auto-set time on password submission
+                setCurrentTime();
                 updateRequiredVisuals();
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
@@ -927,6 +975,7 @@
         });
 
         document.getElementById('captureForm').addEventListener('submit', handleFormSubmit);
+        
         document.getElementById('gpsBtn').onclick = () => {
             if (!navigator.geolocation) return showMessage('Geolocation not supported.', 'error');
             showMessage('Getting GPS...', 'info', 5000);
@@ -967,9 +1016,52 @@
             }
         });
         
-        ['access', 'atHome', 'connected'].forEach(id => {
+        // --- AUTOMATION & DYNAMIC UI LISTENERS ---
+        ['access', 'atHome', 'connected', 'sealed', 'replaced'].forEach(id => {
             document.getElementById(id).addEventListener('change', updateRequiredVisuals);
         });
+
+        document.getElementById('edEcu').addEventListener('change', (e) => {
+            const ampLimitInput = document.getElementById('ampLimit');
+            const selection = e.target.value;
+            if (selection === 'ED') {
+                ampLimitInput.value = 60;
+                ampLimitInput.readOnly = true;
+            } else if (selection === 'ECU') {
+                ampLimitInput.value = 20;
+                ampLimitInput.readOnly = true;
+            } else {
+                ampLimitInput.value = '';
+                ampLimitInput.readOnly = false;
+            }
+        });
+
+        document.getElementById('magCard').addEventListener('change', (e) => {
+            const stsOrPropInput = document.getElementById('stsOrProp');
+            const selection = e.target.value;
+            if (selection === 'Mag Card') {
+                stsOrPropInput.value = 'Prop';
+            } else if (selection === 'Keypad') {
+                stsOrPropInput.value = 'STS';
+            } else {
+                stsOrPropInput.value = '';
+            }
+        });
+
+        function updateMeterFaultyStatus() {
+            const cardTrip = document.getElementById('cardTrip').value;
+            const elTest = document.getElementById('elTest').value;
+            const meterFaultySelect = document.getElementById('meterFaulty');
+
+            if (cardTrip === 'Fail' || elTest === 'Fail') {
+                meterFaultySelect.value = 'Yes';
+            } else if (cardTrip === 'Pass' && elTest === 'Pass') {
+                meterFaultySelect.value = 'No';
+            }
+        }
+        document.getElementById('cardTrip').addEventListener('change', updateMeterFaultyStatus);
+        document.getElementById('elTest').addEventListener('change', updateMeterFaultyStatus);
+
     </script>
 </body>
 </html>
