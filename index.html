@@ -349,12 +349,12 @@
             <div class="field"><label for="split">Split</label><select id="split" name="split"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="commonBaseMeter">Common/Non Common Base Meter</label><input id="commonBaseMeter" name="commonBaseMeter" type="text"></div>
             <div class="field"><label for="edEcu">ED/ECU</label><select id="edEcu" name="edEcu"><option value="">— Select —</option><option value="ED">ED</option><option value="ECU">ECU</option></select></div>
-            <div class="field"><label for="meterField">Meter Field</label><input id="meterField" name="meterField" type="text"></div>
+            <div class="field"><label for="meterField">Meter Type</label><input id="meterField" name="meterField" type="text"></div>
             <div class="field"><label for="otherMeterType">Other Meter Type</label><input id="otherMeterType" name="otherMeterType" type="text"></div>
             <div class="field"><label for="tariffCode">Tariff Code</label><input id="tariffCode" name="tariffCode" type="text"></div>
             <div class="field"><label for="ampLimit">Amp Limit</label><input id="ampLimit" name="ampLimit" type="number" inputmode="numeric" pattern="[0-9]*"></div>
             <div class="field"><label for="supplyGroupCode">Supply Group Code</label><input id="supplyGroupCode" name="supplyGroupCode" type="text"></div>
-            <div class="field"><label for="illegalConnection">Illegal Connection</label><select id="illegalConnection" name="illegalConnection"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
+            
 	        <div class="field"><label for="meterTariffIndex">MeterTariffIndex</label><input id="meterTariffIndex" name="meterTariffIndex" type="text"></div>
 
             <div class="field"><label for="magCard">Mag Card/Keypad</label><select id="magCard" name="magCard"><option value="">— Select —</option><option value="Mag Card">Mag Card</option><option value="Keypad">Keypad</option></select></div>
@@ -363,19 +363,20 @@
             <div class="field"><label for="tamperMethod">Tamper Method</label><input id="tamperMethod" name="tamperMethod" type="text"></div>
             <div class="field"><label for="removed">Removed</label><select id="removed" name="removed"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="tamperNotNo">Tamper Not No</label><input id="tamperNotNo" name="tamperNotNo" type="text"></div>
-	        <div class="field"><label for="tamperWaiver">TamperWaiver</label><input id="tamperWaiver" name="tamperWaiver" type="text"></div>
-
+	        
             <div class="field"><label for="cardTrip">Card Trip</label><select id="cardTrip" name="cardTrip"><option value="">— Select —</option><option value="Pass">Pass</option><option value="Fail">Fail</option></select></div>
             <div class="field"><label for="elTest">E/L Test</label><select id="elTest" name="elTest"><option value="">— Select —</option><option value="Pass">Pass</option><option value="Fail">Fail</option></select></div>
-            <div class="field"><label for="newSupplyGroupCode">NewSupplyGroupCode</label><input id="newSupplyGroupCode" name="newSupplyGroupCode" type="text"></div>
+            <div class="field"><label for="sgc">SGC</label><input id="sgc" name="sgc" type="text"></div>
+            
             <div class="field"><label for="meterFaulty">Meter Faulty</label><select id="meterFaulty" name="meterFaulty"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="replaced">Replaced</label><select id="replaced" name="replaced"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
-            <div class="field"><label for="mmfNo">MMF No</label><input id="mmfNo" name="mmfNo" type="text"></div>
+            <div class="field"><label for="mmfNo">MeterChOutNo</label><input id="mmfNo" name="mmfNo" type="text"></div>
             <div class="field"><label for="newMeterNo">New Meter No</label><input id="newMeterNo" name="newMeterNo" type="text"></div>
             <div class="field"><label for="newMeterType">New Meter Type</label><input id="newMeterType" name="newMeterType" type="text"></div>
             <div class="field"><label for="newMeterAmpLimit">New Meter Amp Limit</label><input id="newMeterAmpLimit" name="newMeterAmpLimit" type="number" inputmode="numeric" pattern="[0-9]*"></div>
-            <div class="field"><label for="newMeterCardTrip">New Meter Card Trip</label><select id="newMeterCardTrip" name="newMeterCardTrip"><option value="">— Select —</option><option value="Pass">Pass</option><option value="Fail">Fail</option></select></div>
-            <div class="field"><label for="newMeterElTest">New Meter E/L Test</label><select id="newMeterElTest" name="newMeterElTest"><option value="">— Select —</option><option value="Pass">Pass</option><option value="Fail">Fail</option></select></div>
+            <div class="field"><label for="newSupplyGroupCode">New Supply Group Code</label><input id="newSupplyGroupCode" name="newSupplyGroupCode" type="text"></div>
+            <div class="field"><label for="newMeterCardTrip">CardTripNewMet</label><select id="newMeterCardTrip" name="newMeterCardTrip"><option value="">— Select —</option><option value="Pass">Pass</option><option value="Fail">Fail</option></select></div>
+            <div class="field"><label for="newMeterElTest">E/LTestNewMet</label><select id="newMeterElTest" name="newMeterElTest"><option value="">— Select —</option><option value="Pass">Pass</option><option value="Fail">Fail</option></select></div>
             <div class="field"><label for="sealed">Sealed</label><select id="sealed" name="sealed"><option value="">— Select —</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
             <div class="field"><label for="sealNo">Seal No</label><input id="sealNo" name="sealNo" type="text"></div>
             <div class="field"><label for="remarks">Remarks</label><textarea id="remarks" name="remarks"></textarea></div>
@@ -605,9 +606,9 @@
             const deg = Math.floor(abs);
             const minF = (abs - deg) * 60;
             const min = Math.floor(minF);
-            const sec = ((minF - min) * 60).toFixed(3);
+            const_sec = ((minF - min) * 60).toFixed(3);
             let hemisphere = dec >= 0 ? (type === 'latitude' ? 'N' : 'E') : (type === 'latitude' ? 'S' : 'W');
-            return `${String(deg).padStart(2, '0')} ${String(min).padStart(2, '0')} ${sec.padStart(6, '0')} ${hemisphere}`;
+            return `${String(deg).padStart(2, '0')} ${String(min).padStart(2, '0')} ${const_sec.padStart(6, '0')} ${hemisphere}`;
         }
         
         function setTodaysDate() {
@@ -624,7 +625,8 @@
 
         // --- VALIDATION ---
         const alwaysRequiredFields = ['cnc', 'date', 'feederName', 'xformerNo'];
-        const accessBasedRequiredFields = ['phoneCode', 'phoneNo', 'meterNo', 'supplyGroupCode', 'cardTrip', 'elTest', 'sealed', 'latitude', 'longitude'];
+        // Added 'sgc' to accessBasedRequiredFields
+        const accessBasedRequiredFields = ['phoneCode', 'phoneNo', 'meterNo', 'supplyGroupCode', 'cardTrip', 'elTest', 'sgc', 'sealed', 'latitude', 'longitude'];
         const sealedBasedRequiredFields = ['sealNo'];
         const replacedBasedRequiredFields = ['mmfNo', 'newMeterNo', 'newMeterAmpLimit'];
         
@@ -683,7 +685,7 @@
             }
             
             if (formData.get('replaced') === 'Yes') {
-                checkField('mmfNo', 'MMF No');
+                checkField('mmfNo', 'MeterChOutNo');
                 checkField('newMeterNo', 'New Meter No');
                 checkField('newMeterAmpLimit', 'New Meter Amp Limit');
             }
@@ -896,11 +898,16 @@
             const excelHeaderMap = {
                 'featureName': 'FeatureName(Auditing/MeterChangeout)',
                 'xformerNo': 'XformerNo',
-                'newSupplyGroupCode': 'NewSupplyGroupCode',
+                'newSupplyGroupCode': 'New Supply Group Code',
                 'lat': 'Latitude',
                 'lon': 'Longitude',
                 'contractorName': 'Contractor Name or Other Source',
-                'townshipId': 'Township ID'
+                'townshipId': 'Township ID',
+                'meterField': 'Meter Type',
+                'mmfNo': 'MeterChOutNo',
+                'newMeterCardTrip': 'CardTripNewMet',
+                'newMeterElTest': 'E/LTestNewMet',
+                'sgc': 'SGC'
             };
 
             const map = {};
@@ -1059,4 +1066,3 @@
     </script>
 </body>
 </html>
-
